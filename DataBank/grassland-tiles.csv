@@ -153,5 +153,5 @@ Restrict Tile,320,288
 Restrict Tile,416,320
 Restrict Tile,320,192
 Transport Tile,192,480,Lake,832,416
-Transport Tile,1240,780,Cave,40,320
-Transport Tile,1120,660,Store,280,400
+Transport Tile,576,704,Cave,288,416
+Transport Tile,448,288,Store,160,256
