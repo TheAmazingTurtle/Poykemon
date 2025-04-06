@@ -43,7 +43,7 @@ public class Player{
 
         loadSprites();
         
-        ballPouch.add(new Basicball(999));
+        ballPouch.add(new Basicball(1));
         ballPouch.add(new Greatball(999));
         baitPouch.add(new ChipBerry(999));
     }
@@ -154,11 +154,7 @@ public class Player{
     }
 
     public Bait[] getBaitPouch(){
-        for (Bait bait: baitPouch){
-            if (bait.getQuantity() == 0){
-                baitPouch.remove(bait);
-            }
-        }
+        baitPouch.removeIf(bait -> bait.getQuantity() == 0);
 
         Bait[] baitArray = new Bait[baitPouch.size()];
 
@@ -170,11 +166,7 @@ public class Player{
     }
 
     public Poykeball[] getBallPouch(){
-        for (Poykeball ball: ballPouch){
-            if (ball.getQuantity() == 0){
-                ballPouch.remove(ball);
-            }
-        }
+        ballPouch.removeIf(ball -> ball.getQuantity() == 0);
 
         Poykeball[] ballArray = new Poykeball[ballPouch.size()];
 

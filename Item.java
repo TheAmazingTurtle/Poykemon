@@ -45,10 +45,6 @@ class Basicball extends Poykeball{
         System.out.println(name + " has been used.");
 
         quantity--;
-
-        if (quantity == 0){
-
-        }
         
     }
 }

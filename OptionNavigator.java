@@ -142,9 +142,9 @@ class EncounterOptionNav extends OptionNavigator{
     @Override
     public void activateReadyOption(){
         switch (getReadyAction()){
-            case CATCH -> GameState.getInstance().getOptionNavStack().add(new CatchOptionNav());
+            case CATCH -> GameState.getInstance().getOptionNavStack().add(new CatchOptionNav(CatchOptionNav.getPoykeballNames()));
             case THROW -> GameState.getInstance().getEncounterHandler().throwRock();
-            case BAIT -> GameState.getInstance().getOptionNavStack().add(new BaitOptionNav());
+            case BAIT -> GameState.getInstance().getOptionNavStack().add(new BaitOptionNav(BaitOptionNav.getBaitNames()));
             case RUN -> GameState.getInstance().exitEncounter();
             default -> throw new AssertionError();
         }
@@ -154,22 +154,23 @@ class EncounterOptionNav extends OptionNavigator{
 class CatchOptionNav extends OptionNavigator{
     private static final int MAX_VISIBLE_ITEM = 3;
 
-    private static Poykeball[] ballPouch = Player.getInstance().getBallPouch();
-    private static String[] ballOptions = getPoykeballNames();
+    private Poykeball[] ballPouch = Player.getInstance().getBallPouch();
+    private String[] ballOptions = getPoykeballNames();
 
     private int topOptionRef;
 
-    public CatchOptionNav(){
+    public CatchOptionNav(String[] ballOptions){
         super(new String[][]{ballOptions},
                 true);
 
+        this.ballOptions = ballOptions;
         this.topOptionRef = 0;
     }
 
-    private static String[] getPoykeballNames(){
-        String ballOptions[] = new String[ballPouch.length];
+    public static String[] getPoykeballNames(){
+        String ballOptions[] = new String[Player.getInstance().getBallPouch().length];
         
-        for (int i = 0; i < ballPouch.length; i++){
+        for (int i = 0; i < ballOptions.length; i++){
             ballOptions[i] = Player.getInstance().getBallPouch()[i].getName();
         }
 
@@ -237,18 +238,20 @@ class CatchOptionNav extends OptionNavigator{
 class BaitOptionNav extends OptionNavigator{
     private static final int MAX_VISIBLE_ITEM = 3;
     private static Bait[] baitPouch = Player.getInstance().getBaitPouch();
-    private static String[] baitOptions = getBaitNames();
-    private static int baitNum = baitOptions.length;
+    private static String[] baitOptions;
+    private static int baitNum = baitPouch.length;
 
     private int topOptionRef;
 
 
-    public BaitOptionNav(){
+    public BaitOptionNav(String[] baitOptions){
         super(new String[][]{baitOptions},
                 true);
+
+        this.baitOptions = baitOptions;
     }
 
-    private static String[] getBaitNames(){
+    public static String[] getBaitNames(){
         String ballOptions[] = new String[baitPouch.length];
         
         for (int i = 0; i < baitPouch.length; i++){
