@@ -7,9 +7,10 @@ public class Player{
     private static final char UP = 'U', DOWN = 'D', LEFT = 'L', RIGHT = 'R';
     private static final int ANIMATION_FRAMES = 4;
     private static final int FRAME_UPDATE_INTERVAL = 2; // Adjust for animation speed
-    private static final Image[][] walkingSprites = new Image[4][4];
+
+    private static final Image[][][] walkingSprites = new Image[4][4][2];
     private static final Image[][] sailingSprites = new Image[4][4]; 
-    private static final int MOVEMENT_SPEED = 10;
+    private static final int MOVEMENT_SPEED = 8;
     
     private static int frameCounter = 0;
     private static Player player;
@@ -30,7 +31,7 @@ public class Player{
         this.name = null;
         this.direction = 'D';
         this.spriteNum = 0;
-        this.position = new Position(1120, 780);
+        this.position = new Position(448, 448);
         this.destination = null;
         this.location = Grassland.getInstance();
 
@@ -112,7 +113,8 @@ public class Player{
 
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++){
-                walkingSprites[i][j] = new ImageIcon("Assets/Player/" + directions[i] + "-" + j + ".png").getImage();
+                walkingSprites[i][j][0] = new ImageIcon("Assets/Player/" + directions[i] + "-" + j + ".png").getImage();
+                walkingSprites[i][j][1] = new ImageIcon("Assets/Player/" + directions[i] + "-" + j + "-H.png").getImage();
                 sailingSprites[i][j] = new ImageIcon("Assets/Player/B" + directions[i] + "-" + j + ".png").getImage();
             }
         }
@@ -130,13 +132,25 @@ public class Player{
         }
         else {
             return switch(direction){
-                        case UP -> walkingSprites[0][spriteNum];
-                        case DOWN -> walkingSprites[1][spriteNum];
-                        case LEFT -> walkingSprites[2][spriteNum];
-                        case RIGHT -> walkingSprites[3][spriteNum];
+                        case UP -> walkingSprites[0][spriteNum][0];
+                        case DOWN -> walkingSprites[1][spriteNum][0];
+                        case LEFT -> walkingSprites[2][spriteNum][0];
+                        case RIGHT -> walkingSprites[3][spriteNum][0];
                         default -> null;
                     };
         }
+    }
+
+    public Image getHeadImage(){
+        if (onBoat) return null;
+
+        return switch(direction){
+            case UP -> walkingSprites[0][spriteNum][1];
+            case DOWN -> walkingSprites[1][spriteNum][1];
+            case LEFT -> walkingSprites[2][spriteNum][1];
+            case RIGHT -> walkingSprites[3][spriteNum][1];
+            default -> null;
+        };
     }
 
     public Bait[] getBaitPouch(){
@@ -251,6 +265,8 @@ public class Player{
                 return;
             }
         }
+
+        System.out.println(position.getX() + " " + position.getY());
     }
 
     public void handleMovementInput(KeyEvent e) {

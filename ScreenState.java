@@ -58,13 +58,16 @@ class OverworldScreen extends ScreenState{
         }
 
         // player
-        g.drawImage(player.getImage(), GamePanel.SRCEEN_WIDTH/2 - 20, GamePanel.SRCEEN_HEIGHT/2 - 36, GamePanel.getInstance());
+        g.drawImage(player.getImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
         
 
         // tiles
         for (Tile tile: player.getLocation().getMapTiles()){
             g.drawImage(tile.getImage(), mapX + tile.getPosition().getX(), mapY + tile.getPosition().getY(), GamePanel.getInstance());
         }
+
+        // player head
+        g.drawImage(player.getHeadImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
 
         if (player.getLocation() == Cave.getInstance()){
             g.drawImage(Location.CAVE_LIGHT, 0, 0, GamePanel.getInstance());
