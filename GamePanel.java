@@ -44,11 +44,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         super.paintComponent(g);
         gameState.getScreenState().drawScreenState(g);
 
+        gameState.drawOptionNavigator(g);
+
         if (gameState.getDialogueBox() != null){
             gameState.getDialogueBox().drawDialogueBox(g);
         }
         
-        gameState.drawOptionNavigator(g);
         repaint();
     }
 
@@ -59,11 +60,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!gameState.getOptionNavStack().isEmpty()){
-            gameState.getActiveOptionNavigator().handleKeyboardInput(e);
-        }
-        else if (gameState.getDialogueBox() != null) {
+        if (gameState.getDialogueBox() != null) {
             gameState.handleDialogueBoxInput(e);
+        }
+        else if (!gameState.getOptionNavStack().isEmpty()){
+            gameState.getActiveOptionNavigator().handleKeyboardInput(e);
         }
         else {
             player.handleMovementInput(e);

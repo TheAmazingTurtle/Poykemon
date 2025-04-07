@@ -49,16 +49,20 @@ class OverworldScreen extends ScreenState{
         g.drawImage(player.getLocation().getMapImage(), mapX, mapY, GamePanel.getInstance());
 
         // npc
-        for (NPC npc: player.getLocation().getNPCs()){
-            g.drawImage(npc.getSprite(), mapX + npc.getPosition().getX(), mapY + npc.getPosition().getY() - 16, GamePanel.getInstance());
+        // for (NPC npc: player.getLocation().getNPCs()){
+        //     g.drawImage(npc.getSprite(), mapX + npc.getPosition().getX(), mapY + npc.getPosition().getY() - 16, GamePanel.getInstance());
             
-            if (npc.getHasImportantDialogue()){
-                g.drawImage(NPC.IMPORTANT_SIGN, mapX + npc.getPosition().getX() + 25, mapY + npc.getPosition().getY() - 30, GamePanel.getInstance());
-            }
-        }
+        //     if (npc.getHasImportantDialogue()){
+        //         g.drawImage(NPC.IMPORTANT_SIGN, mapX + npc.getPosition().getX() + 25, mapY + npc.getPosition().getY() - 30, GamePanel.getInstance());
+        //     }
+        // }
 
         // player
-        g.drawImage(player.getImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
+        if (player.isOnBoat()){
+            g.drawImage(player.getImage(), GamePanel.SRCEEN_WIDTH/2 - 22, GamePanel.SRCEEN_HEIGHT/2 - 42, GamePanel.getInstance());
+        }
+        else
+            g.drawImage(player.getImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
         
 
         // tiles
@@ -67,7 +71,8 @@ class OverworldScreen extends ScreenState{
         }
 
         // player head
-        g.drawImage(player.getHeadImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
+        if (!player.isOnBoat())
+            g.drawImage(player.getHeadImage(), GamePanel.SRCEEN_WIDTH/2 - 16, GamePanel.SRCEEN_HEIGHT/2 - 32, GamePanel.getInstance());
 
         if (player.getLocation() == Cave.getInstance()){
             g.drawImage(Location.CAVE_LIGHT, 0, 0, GamePanel.getInstance());

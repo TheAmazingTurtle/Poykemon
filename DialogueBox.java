@@ -94,7 +94,7 @@ public class DialogueBox {
         Graphics2D g2D = (Graphics2D)g;
 
         Font stringFont = new Font(Font.MONOSPACED, Font.BOLD, 20);
-        int stringPadding = 5;
+        int stringPadding = 20;
 
         int boxMargin = 10;
         int boxWidth = GamePanel.SRCEEN_WIDTH - boxMargin*2;
