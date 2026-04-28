@@ -16,8 +16,8 @@ public abstract class Location {
     protected static final Tile[] STORE_TILES = getMapTilesFromDB(STORE);
 
     private static final String GRASSLAND_BGM = "Assets/BGM/grasslandBGM.wav";
-    private static final String LAKE_BGM = "Assets/BGM/lakeBGM.wav";
-    private static final String CAVE_BGM = "Assets/BGM/caveBGM.wav";
+    private static final String LAKE_BGM = "Assets/BGM/Lake.wav";
+    private static final String CAVE_BGM = "Assets/BGM/Cave.wav";
     private static final String STORE_BGM = "Assets/BGM/storeBGM.wav";
 
     private final String name;
