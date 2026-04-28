@@ -27,6 +27,7 @@ abstract class Poykeball extends Item{
 
     public Poykeball(String name, int quantity, int capturePower){
         super(name, quantity, true);
+        this.capturePower = capturePower;
     }
 
     public int getCapturePower(){
@@ -68,6 +69,7 @@ abstract class Bait extends Item{
 
     public Bait(String name, int quantity, int baitPower){
         super(name, quantity, true);
+        this.baitPower = baitPower;
     }
 
     public int getBaitPower(){
