@@ -49,13 +49,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         if (gameState.getDialogueBox() != null){
             gameState.getDialogueBox().drawDialogueBox(g);
         }
-        
-        repaint();
     }
 
     @Override
 	public void actionPerformed(ActionEvent e) {
         gameState.getScreenState().updateScreenState();
+        repaint();
 	}
 
     @Override
