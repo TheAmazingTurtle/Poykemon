@@ -118,12 +118,12 @@ public class ProgressManager {
         System.out.println(action);
 
         boolean willAdvance = switch(phase){
-                                    case 1 -> true||action.equals(ACTION_TALK+NPC.PROF_ARA);
-                                    case 2 -> true||action.equals(ACTION_CATCH+Location.GRASSLAND+4);
-                                    case 3 -> true||action.equals(ACTION_TALK+NPC.KID);
-                                    case 4 -> true||action.equals(ACTION_CATCH+Location.LAKE+2);
-                                    case 5 -> true||action.equals(ACTION_TALK+NPC.CAVE_CREW);
-                                    case 6 -> true||action.equals(ACTION_TALK+NPC.PROF_ARA);
+                                    case 1 -> action.equals(ACTION_TALK+NPC.PROF_ARA);
+                                    case 2 -> action.equals(ACTION_CATCH+Location.GRASSLAND+4);
+                                    case 3 -> action.equals(ACTION_TALK+NPC.KID);
+                                    case 4 -> action.equals(ACTION_CATCH+Location.LAKE+2);
+                                    case 5 -> action.equals(ACTION_TALK+NPC.CAVE_CREW);
+                                    case 6 -> action.equals(ACTION_TALK+NPC.PROF_ARA);
                                     default -> false;
                                 };
         if (willAdvance){

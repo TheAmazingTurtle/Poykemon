@@ -25,7 +25,7 @@ public class EncounterHandler {
 
             player.addPoykemonToCollection(poykemon);
             player.getLocation().incrementNumPoykemonCaught();
-            ProgressManager.getInstance().checkProgression(ProgressManager.ACTION_CATCH + player.getLocation() + player.getLocation().getNumPoykemonCaught());
+            ProgressManager.getInstance().checkProgression(ProgressManager.ACTION_CATCH + player.getLocation().getName() + player.getLocation().getNumPoykemonCaught());
 
             gameState.exitEncounter();
             return;
