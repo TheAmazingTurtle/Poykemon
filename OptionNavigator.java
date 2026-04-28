@@ -237,9 +237,10 @@ class CatchOptionNav extends OptionNavigator{
 
 class BaitOptionNav extends OptionNavigator{
     private static final int MAX_VISIBLE_ITEM = 3;
-    private static Bait[] baitPouch = Player.getInstance().getBaitPouch();
-    private static String[] baitOptions;
-    private static int baitNum = baitPouch.length;
+
+    private Bait[] baitPouch;
+    private String[] baitOptions;
+    private int baitNum;
 
     private int topOptionRef;
 
@@ -248,17 +249,21 @@ class BaitOptionNav extends OptionNavigator{
         super(new String[][]{baitOptions},
                 true);
 
+        this.baitPouch = Player.getInstance().getBaitPouch();
         this.baitOptions = baitOptions;
+        this.baitNum = baitPouch.length;
+        this.topOptionRef = 0;
     }
 
     public static String[] getBaitNames(){
-        String ballOptions[] = new String[baitPouch.length];
+        Bait baitPouch[] = Player.getInstance().getBaitPouch();
+        String baitOptions[] = new String[baitPouch.length];
         
         for (int i = 0; i < baitPouch.length; i++){
-            ballOptions[i] = Player.getInstance().getBallPouch()[i].getName();
+            baitOptions[i] = baitPouch[i].getName();
         }
 
-        return ballOptions;
+        return baitOptions;
     }
 
     @Override
