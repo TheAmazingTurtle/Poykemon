@@ -188,7 +188,6 @@ public class Player{
 
         if (direction != this.direction){                                   // face same direction as keyboard input
             player.setDirection(direction);
-            return;
         } 
         
         Position targetPosition = getPosition().createCopy();
@@ -262,15 +261,27 @@ public class Player{
     }
 
     public void handleMovementInput(KeyEvent e) {
+        if (handleMovementKey(e.getKeyCode())){
+            return;
+        }
+
         switch(e.getKeyCode()){
-            case KeyEvent.VK_W, KeyEvent.VK_UP -> processPlayerDestination(UP);
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> processPlayerDestination(DOWN);
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> processPlayerDestination(LEFT);
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> processPlayerDestination(RIGHT);
             case KeyEvent.VK_ESCAPE -> GameState.getInstance().getOptionNavStack().add(new MenuOptionNav());
             case KeyEvent.VK_ENTER -> interact();
             default -> {
             }
         };
+    }
+
+    public boolean handleMovementKey(int keyCode) {
+        switch(keyCode){
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> processPlayerDestination(UP);
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> processPlayerDestination(DOWN);
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> processPlayerDestination(LEFT);
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> processPlayerDestination(RIGHT);
+            default -> { return false; }
+        };
+
+        return true;
     }
 }

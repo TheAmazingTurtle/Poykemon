@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -16,6 +17,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     private final GameState gameState;
     private final Player player;
     private final Timer timer;
+    private final HashSet<Integer> heldMovementKeys;
+    private int lastMovementKey;
 
     public static GamePanel gamePanel;
 
@@ -26,6 +29,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
         this.gameState = GameState.getInstance();
         this.player = Player.getInstance();
+        this.heldMovementKeys = new HashSet<>();
+        this.lastMovementKey = KeyEvent.VK_UNDEFINED;
         
         int delay = 1000 / FPS; 
         this.timer = new Timer(delay, this);
@@ -53,9 +58,35 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
     @Override
 	public void actionPerformed(ActionEvent e) {
+        processHeldMovementInput();
         gameState.getScreenState().updateScreenState();
         repaint();
 	}
+
+    private void processHeldMovementInput(){
+        if (gameState.getDialogueBox() != null || !gameState.getOptionNavStack().isEmpty() || player.getDestination() != null){
+            return;
+        }
+
+        if (heldMovementKeys.contains(lastMovementKey)){
+            player.handleMovementKey(lastMovementKey);
+            return;
+        }
+
+        if (!heldMovementKeys.isEmpty()){
+            int keyCode = heldMovementKeys.iterator().next();
+            lastMovementKey = keyCode;
+            player.handleMovementKey(keyCode);
+        }
+    }
+
+    private boolean isMovementKey(int keyCode){
+        return switch(keyCode){
+            case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_S, KeyEvent.VK_DOWN,
+                 KeyEvent.VK_A, KeyEvent.VK_LEFT, KeyEvent.VK_D, KeyEvent.VK_RIGHT -> true;
+            default -> false;
+        };
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -66,13 +97,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
             gameState.getActiveOptionNavigator().handleKeyboardInput(e);
         }
         else {
+            if (isMovementKey(e.getKeyCode())){
+                heldMovementKeys.add(e.getKeyCode());
+                lastMovementKey = e.getKeyCode();
+            }
+
             player.handleMovementInput(e);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // pass
+        heldMovementKeys.remove(e.getKeyCode());
     }
 
     @Override
