@@ -86,28 +86,36 @@ class EncounterOptionNav extends OptionNavigator{
     @Override
     public void drawOptionNavigator(Graphics g){
         // actions
+        int optionWidth = 200;
+        int optionHeight = 40;
+        int optionGap = 10;
+        int groupWidth = optionWidth * 2 + optionGap;
+        int leftX = (GamePanel.SRCEEN_WIDTH - groupWidth) / 2;
+        int rightX = leftX + optionWidth + optionGap;
+        int topY = GamePanel.SRCEEN_HEIGHT - 110;
+        int bottomY = topY + optionHeight + optionGap;
         
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
         
         g.setColor(Color.WHITE);
-        g.fillRect(35, 370, 200, 40);
+        g.fillRect(leftX, topY, optionWidth, optionHeight);
         g.setColor(Color.DARK_GRAY);
-        g.drawString(CATCH, 40, 400);
+        g.drawString(CATCH, leftX + 5, topY + 30);
 
         g.setColor(Color.WHITE);
-        g.fillRect(35, 420, 200, 40);
+        g.fillRect(leftX, bottomY, optionWidth, optionHeight);
         g.setColor(Color.DARK_GRAY);
-        g.drawString(THROW, 40, 450);
+        g.drawString(THROW, leftX + 5, bottomY + 30);
         
         g.setColor(Color.WHITE);
-        g.fillRect(245, 370, 200, 40);
+        g.fillRect(rightX, topY, optionWidth, optionHeight);
         g.setColor(Color.DARK_GRAY);
-        g.drawString(BAIT, 250, 400);
+        g.drawString(BAIT, rightX + 5, topY + 30);
 
         g.setColor(Color.WHITE);
-        g.fillRect(245, 420, 200, 40);
+        g.fillRect(rightX, bottomY, optionWidth, optionHeight);
         g.setColor(Color.DARK_GRAY);
-        g.drawString(RUN, 250, 450);
+        g.drawString(RUN, rightX + 5, bottomY + 30);
 
         // highlight ready action
         switch (getReadyAction()){
@@ -115,25 +123,25 @@ class EncounterOptionNav extends OptionNavigator{
             case CATCH -> {
                 ((Graphics2D) g).setStroke(new BasicStroke(5));
                 g.setColor(Color.DARK_GRAY);
-                g.drawRect(35, 370, 200, 40);
+                g.drawRect(leftX, topY, optionWidth, optionHeight);
             }
 
             case THROW -> {
                 ((Graphics2D) g).setStroke(new BasicStroke(5));
                 g.setColor(Color.DARK_GRAY);
-                g.drawRect(35, 420, 200, 40);
+                g.drawRect(leftX, bottomY, optionWidth, optionHeight);
             }
 
             case BAIT -> {
                 ((Graphics2D) g).setStroke(new BasicStroke(5));
                 g.setColor(Color.DARK_GRAY);
-                g.drawRect(245, 370, 200, 40);
+                g.drawRect(rightX, topY, optionWidth, optionHeight);
             }
 
             case RUN -> {
                 ((Graphics2D) g).setStroke(new BasicStroke(5));
                 g.setColor(Color.DARK_GRAY);
-                g.drawRect(245, 420, 200, 40);
+                g.drawRect(rightX, bottomY, optionWidth, optionHeight);
             }
             default -> throw new AssertionError();
         }

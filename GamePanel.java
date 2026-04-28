@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
-    public static final int SRCEEN_WIDTH = 480;
-    public static final int SRCEEN_HEIGHT = 480;
+    public static final int SRCEEN_WIDTH = 960;
+    public static final int SRCEEN_HEIGHT = 540;
     public static final int TILE_SIZE = 32;
     public static final int FPS = 60; 
 

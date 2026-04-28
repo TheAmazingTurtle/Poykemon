@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Image;
 
 public abstract class ScreenState {
     public static final String OVERWORLD = "Overworld";
@@ -99,7 +100,13 @@ class EncounterScreen extends ScreenState{
 
     @Override
     public void drawScreenState(Graphics g) {
-        g.drawImage(Player.getInstance().getLocation().getEncounterImage(), 0, 0, GamePanel.getInstance());
+        Image encounterImage = Player.getInstance().getLocation().getEncounterImage();
+        int imageWidth = encounterImage.getWidth(GamePanel.getInstance());
+        int imageHeight = encounterImage.getHeight(GamePanel.getInstance());
+        int imageX = (GamePanel.SRCEEN_WIDTH - imageWidth) / 2;
+        int imageY = (GamePanel.SRCEEN_HEIGHT - imageHeight) / 2;
+
+        g.drawImage(encounterImage, imageX, imageY, GamePanel.getInstance());
         g.drawImage(poykemon.getImage(), GamePanel.SRCEEN_WIDTH/2 - 110, GamePanel.SRCEEN_HEIGHT/3 - 100, GamePanel.getInstance());
     }
 }
